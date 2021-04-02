@@ -1,0 +1,170 @@
+html {
+    min-height: 100%;
+    background-image: url(../Images/background-1.jpg);
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center center;
+ }
+
+body {
+    margin: 0;
+}
+
+.navbar {
+    background: white;
+    padding: 1em;
+
+    .logo {
+        text-decoration: none;
+        font-weight: bold;
+        color: black;
+        cursor: default;
+        
+
+        span {
+            color: rgb(4, 4, 167);
+            font-size: 2.2em;
+        }
+    }
+}
+
+.navbar-nav {
+    display: none;
+
+}
+
+.container {
+    display: flex;
+    place-content: space-between;
+
+}
+
+.mobile-menu {
+    padding-left: 1em;
+    cursor: pointer;
+}
+
+
+
+nav.menu-btn {
+    display: block;
+}
+
+.navbar-nav {
+    position: fixed;
+    z-index: 999;
+    width: 30%;
+    right: 0;
+    top: 0;
+    background: #90EE90;
+    height: 100vh;
+    padding: 1em;
+    border: 1px solid gray;
+
+    ul.primary-nav{
+        list-style-type: none;
+        margin: 0;
+        padding: 0;
+        margin-top: 2em;
+    }
+
+    li {
+        a {
+            color: black;
+            text-decoration: none;
+            display: block;
+            padding: .5em;
+            font-size: 1em;
+            text-align: right;
+        }
+
+        &:hover {
+            font-weight: bold;
+        }
+    }
+}
+
+.mobile-menu-exit {
+    width: 1em;
+    float: right;
+    margin: .5em;
+    cursor: pointer;
+
+    &:hover {
+        width: 1.3em;
+    }
+}
+
+
+@media (min-width: 1145px) {
+
+    .mobile-menu, .mobile-menu-exit {
+        display: none;
+    }
+
+    .navbar .container {
+        display: grid;
+        grid-template-columns: 600px auto;
+        
+    }
+
+    .navbar nav {
+        display: flex;
+        justify-content: space-between;
+        background: none;
+        position: unset;
+        height: auto;
+        width: 100%;
+        padding: 0;
+        border: white;
+
+        ul {
+            display: flex;
+        }
+
+        a {
+            color: black;
+            font-size: 1.3em;
+            padding: .1em 1em;
+        }
+
+        ul.primary-nav {
+            margin: 0;
+        }
+
+        li.current a {
+            font-weight: bold;
+            &:hover {
+                margin-top: -.1em;
+                font-size: 1.5em;
+            }
+        }
+
+        li.contact-cta a {
+            color: #90EE90;
+            border: 3px solid #90EE90;
+            font-weight: bold;
+            border-radius: 5em;
+            margin-top: -.2em;
+
+            &:hover {
+                background: #90EE90;
+                color: white;
+            }
+        }
+
+        li.logout-cta a {
+            color: blue;
+            border: 3px solid blue;
+            font-weight: bold;
+            border-radius: 5em;
+            margin-top: -.2em;
+            margin-left: 1em;
+
+            &:hover {
+                background: blue;
+                color: white;
+            }
+        }
+    }
+}
