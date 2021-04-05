@@ -24,7 +24,8 @@
                     <li class="req-veh"><a href="#">Request Vehicle</a></li>
                     <li class="vdra"><a href="#">VDRA</a></li>
                     <li class="veh-detail"><a href="#">Vehicle Details</a></li>
-                   <li class="add-veh"><a href="#">Add Vehicle</a></li>
+                    <li class="add-veh"><a href="#">Add Vehicle</a></li>
+                    <li class="chng-pass"><a href="mt_password.php">Change Password</a></li>
                 </ul>
             </div>
         </div>
