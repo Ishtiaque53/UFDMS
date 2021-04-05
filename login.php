@@ -34,6 +34,7 @@
             $_SESSION['username'] = $username;
             $_SESSION['appt'] = $appt;
             $_SESSION['toDate'] = $toDate;
+            $_SESSION['id'] = $row["id"];
             switch ($appt) {
                 case "QM":
                     header("location:qm_home.php");

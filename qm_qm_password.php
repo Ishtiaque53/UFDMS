@@ -6,30 +6,23 @@
     include("dbcon.php");
     if(isset($_POST["submit"])) {
         
-        $bano = $_POST['baNo'];
-        $rank = $_POST['rank'];
-        $name = $_POST['name'];
         $password = $_POST['password'];
         $password = crypt($password, 'rl');
-        $fromDate = new DateTime();
 
-        $quary = "INSERT INTO user (personalnum, rank, username, password, fromdate, appt) VALUES ('".$bano."', '".$rank."', '".$name."', '".$password."', '".$fromDate->format('Y-m-d H:i:s')."', 'QM')";
-        $result = mysqli_query($con, $quary) or die(mysqli_error($con));
+        $quary = "UPDATE `user` SET password = '".$password."' WHERE id = '".$_SESSION['id']."'";
+        $result1 = mysqli_query($con, $quary) or die(mysqli_error($con));
 
-        $quary = "UPDATE `user` SET todate = '".$fromDate->format('Y-m-d H:i:s')."' WHERE username = '".$_SESSION['username']."'";
-        $result2 = mysqli_query($con, $quary) or die(mysqli_error($con));
-
-        if($result && $result2) {
+        if($result1) {
             $quary = "commit";
             mysqli_query($con, $quary) or die(mysqli_error($con));
-            echo '<script>alert("QM Change Successful");</script>';
+            echo '<script>alert("QM Password Change Successful");</script>';
             header("refresh:.1; url=logout.php");
         }
 
         else {
             $quary = "rollback";
             mysqli_query($con, $quary) or die(mysqli_error($con));
-            echo '<script>alert("QM Change was not successful");</script>';
+            echo '<script>alert("QM Password Change was not successful");</script>';
         }
     }
 ?>
@@ -40,22 +33,16 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>QM Change</title>
-    <link rel="stylesheet" href="css/qm_change.css">
+    <title>QM Password Change</title>
+    <link rel="stylesheet" href="css/qm_qm_password.css">
 </head>
 <body>
 <?php include 'inc.style.php'; ?>
     <section class="hero">
         <div class="container1">
             <div class="left-col">
-                <p class="subhead">QM Change</p>
-                <form action="qm_change.php" method="post">
-                    <label for="baNo">BA No:</label>
-                    <input type="text" id="baNo" name="baNo" placeholder="@example- BA-11111" required>
-                    <label for="rank">Rank:</label>
-                    <input type="text" id="rank" name="rank" placeholder="@example- Lt" required>
-                    <label for="name">Name:</label>
-                    <input type="text" id="name" name="name" placeholder="@example- Imrul" required>
+                <p class="subhead">New Password</p>
+                <form action="qm_qm_password.php" method="post">
                     <label for="password">Password:</label>
                     <input type="password" id="password" name="password" required>
                     <label for="re-password">Retype Password:</label>
