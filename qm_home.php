@@ -27,7 +27,7 @@
                     <li class="new-veh-apprv"><a href="#">New Vehicle Approval</a></li>
                     <li class="veh-apprv"><a href="#">Vehicle Approval</a></li>
                     <li class="veh-detail"><a href="#">Vehicle Details</a></li>
-                    <li class="nco-req"><a href="#">NCO Request</a></li>
+                    <li class="nco-req"><a href="qm_ncorequest.php">NCO Request</a></li>
                     <li class="chng-pass"><a href="qm_changepassword.php">Change Password</a></li>
                     <li class="appt-det"><a href="#">Appointment Details</a></li>
                 </ul>
