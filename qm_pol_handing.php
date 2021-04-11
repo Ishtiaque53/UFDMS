@@ -103,7 +103,7 @@
                 <p class="subhead">POL NCO</p>
                 <form action="qm_pol_handing.php" method="post">
                     <div class="old">
-                        <h3>OLD MT NCO</h3>
+                        <h3>OLD POL NCO</h3>
                         <label for="prev-SNNo">Soinik No:</label><br>
                         <input type="text" id="prev-SNNo" name="prev-SNNo" value=<?php echo $_COOKIE['prev-snNo']?> readonly><br>
                         <label for="prev-rank">Rank:</label><br>
@@ -112,7 +112,7 @@
                         <input type="text" id="prev-name" name="prev-name" value=<?php echo $_COOKIE['prev-name']?> readonly><br>
                     </div>
                     <div class="new">
-                        <h3>NEW MT NCO</h3>
+                        <h3>NEW POL NCO</h3>
                         <label for="new-SNNo">Soinik No:</label><br>
                         <input type="text" id="new-SNNo" name="new-SNNo" value=<?php echo $_COOKIE['new-snNo']?> readonly><br>     
                         <label for="new-rank">Rank:</label><br>
