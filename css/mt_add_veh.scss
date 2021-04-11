@@ -6,7 +6,7 @@ section {
 
 .hero {
     align-content: center;
-    text-align: center;
+    //text-align: center;
     padding: 2em 3em;
     width: 40em;
     margin: 2em auto 5em auto;
@@ -34,8 +34,8 @@ section {
 form {
     padding-left: 2em;
     display: grid;
-    grid-template-columns: 320px auto;
-    
+    grid-template-columns: auto auto;
+
 }
 
 .old {
@@ -56,17 +56,19 @@ input {
 }
 
 input[type="submit"] {
+    grid-column: auto / span 2;
     background-color:gray;
     color: white;
     font-weight: bold;
     font-size: 1.3em;
+    margin-left: 100px;
     margin-top: 2em;
     margin-bottom: 2em;
-    margin-right: 2em;
+    margin-right: 150px;
     border-radius: 5em;
     display: inline-block;
     padding: .8em 2em;
-    width: 80%;
+    width: unset;
     cursor: pointer;
 
     &:hover {
