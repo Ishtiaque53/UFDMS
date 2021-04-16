@@ -53,6 +53,7 @@
                                         <td>'.$field5name.'</td> 
                                     </tr>';
                             }
+                            echo '</table>';
                             $result->free();
                         } 
                     ?>                

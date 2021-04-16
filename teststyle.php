@@ -1,5 +1,7 @@
 <?php
-   echo crypt('zxcv', 'rl');
+$arr = array('Hello','World!','Beautiful','Day!');
+echo implode(" ",$arr)."<br>";
+echo implode("+",$arr)."<br>";
+echo implode("-",$arr)."<br>";
+echo implode("X",$arr);
 ?>
-
-<table border="1" cellspacing="3" cellpadding="5"> 

@@ -1,0 +1,69 @@
+@import './style';
+
+section {
+    padding: 5em 5em;
+}
+
+.hero {
+    align-content: center;
+    text-align: center;
+    padding: 2em 3em;
+    width: 60em;
+    margin: 2em auto 5em auto;
+    background: rgba(144, 238, 144, .6);
+    border-radius: 1em;
+
+
+    .container1{
+        place-content: space-between;
+        display: block;
+    }
+}
+
+.left-col {
+    align-self: center;
+    .subhead {
+        text-align: center;
+        text-transform: uppercase;
+        font-weight: 1000;
+        color: black;
+        font-size: 3em;
+    }
+}
+
+table, th, td {
+    border: 1px solid black;
+  }
+
+table {
+    font-size: 1.2em;
+    width: 100%;
+}
+
+tr:nth-child(even) {
+    background-color: rgb(255, 255, 255);
+}
+tr:nth-child(odd) {
+    background-color: rgb(144,238,144);
+}
+
+.search-box{
+    margin-bottom: 2em;
+}
+
+input[name="sendEcht"] {
+    background-color:gray;
+    color: white;
+    font-weight: bold;
+    font-size: 1.3em;
+    margin-top: 2em;
+    margin-bottom: 2em;
+    border-radius: 5em;
+    display: inline-block;
+    padding: .8em 2em;
+    width: unset;
+    cursor: pointer;
+    &:hover {
+        background: black;
+    }
+}

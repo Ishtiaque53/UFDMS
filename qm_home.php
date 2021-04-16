@@ -24,7 +24,7 @@
                     <li class="fuel-req"><a href="#">Fuel Request</a></li>
                     <li class="alloc-fuel"><a href="#">Allocate Fuel</a></li>
                     <li class="vdra"><a href="#">VDRA</a></li>
-                    <li class="new-veh-apprv"><a href="#">New Vehicle Approval</a></li>
+                    <li class="new-veh-apprv"><a href="qm_new_veh.php">New Vehicle Approval</a></li>
                     <li class="veh-apprv"><a href="#">Vehicle Approval</a></li>
                     <li class="veh-detail"><a href="qm_veh_list.php">Vehicle Details</a></li>
                     <li class="nco-req"><a href="qm_ncorequest.php">NCO Request</a></li>

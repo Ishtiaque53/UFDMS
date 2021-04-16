@@ -2,6 +2,39 @@
     $authAppt="QM";
     include 'inc.authentication.php';
     $_COOKIE['home'] = "\"qm_home.php\"";
+
+    if(isset($_POST["sendEcht"])){
+
+        $class=$_POST['list'];
+
+        foreach ($class as $value => $k) {
+
+            if($k == 'approved' || $k == 'not approved')
+            {
+                include("dbcon.php");
+                $quary="UPDATE `vehicle_req` SET status='".$k."' WHERE serial='".$value."'";
+                $result1 = mysqli_query($con, $quary) or die(mysqli_error($con));
+                if($k == 'approved'){
+                    $quary="SELECT * from vehicle_req WHERE serial='".$value."'";
+                    $result2 = mysqli_query($con, $quary) or die(mysqli_error($con));
+                    if (mysqli_num_rows($result2) > 0) {
+                        $row = mysqli_fetch_assoc($result2); 
+                        $bano = $row["bano"];
+                        $milage = $row["milage"];
+                        $kpl = $row["kpl"];
+                        $fueldate = $row["fueldate"];
+                        $fuelIssue = $row["fuelissue"];
+                        $fuelRemaining = $row["fuelremaining"];
+                        $classification = $row["classification"];
+    
+                        $quary = "INSERT INTO vehicle (bano, milage, kpl, fueldate, fuelissue, fuelremaining, classification) VALUES ('".$bano."', '".$milage."', '".$kpl."', '".$fueldate."', '".$fuelIssue."', '".$fuelRemaining."', '".$classification."')";
+                        $result3 = mysqli_query($con, $quary) or die(mysqli_error($con));
+                    }
+                }
+                
+            }
+        }
+    }
 ?>
 
 <!DOCTYPE html>
@@ -10,8 +43,8 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Vehicle Details</title>
-    <link rel="stylesheet" href="css/qm_veh_list.css">
+    <title>Add Vehicle</title>
+    <link rel="stylesheet" href="css/qm_new_veh.css">
 </head>
 <body>
 <?php include 'inc.style.php'; ?>
@@ -20,22 +53,24 @@
             <div class="left-col">
                 <p class="subhead">Vehicle Details</p>
                 <div class = "search-box">
-                    <form action="qm_veh_list.php" method="post">
+                    <form action="qm_new_veh.php" method="post">
                         <input type="text" id="search" name="search" autocomplete="off" placeholder="Search by BA Number" required>
                         <input type="submit" name="search-button" value="Search">
-                        <button onclick="window.location.href='qm_veh_list.php';">Reset</button>
+                        <button onclick="window.location.href='qm_new_veh.php';">Reset</button>
                     </form>
                 </div>
+                <form action="qm_new_veh.php" method="post">
+                
                     <?php 
                         include("dbcon.php");
                         if(isset($_POST["search-button"])) {
         
                             $bano = $_POST["search"];
-                            $quary = "SELECT * FROM `vehicle` WHERE bano = '".$bano."'";
+                            $quary = "SELECT * FROM `vehicle_req` WHERE bano = '".$bano."'";
                             $result = mysqli_query($con, $quary) or die(mysqli_error($con));
                         }
                         else {
-                            $quary = "SELECT * FROM `vehicle`";
+                            $quary = "SELECT * FROM `vehicle_req` where status = 'requested'";
                             $result = mysqli_query($con, $quary) or die(mysqli_error($con));
                         }
 
@@ -49,11 +84,12 @@
                                 <th> Last Fuel Issued </th> 
                                 <th> Fuel Remaining </th>
                                 <th> Classification </th>
-                                <th> Added On </th>
+                                <th> Status </th>
                             </tr>';
 
                         if (mysqli_num_rows($result) > 0) {
                             while ($row = $result->fetch_assoc()) {
+                                $id = $row["serial"];
                                 $field1name = $row["bano"];
                                 $field2name = $row["milage"];
                                 $field3name = $row["kpl"];
@@ -61,7 +97,6 @@
                                 $field5name = $row["fuelissue"];
                                 $field6name = $row["fuelremaining"];
                                 $field7name = $row["classification"];
-                                $field8name = $row["addeddate"]; 
                                 
 
                                 echo '<tr> 
@@ -72,15 +107,26 @@
                                         <td>'.$field5name.'</td>
                                         <td>'.$field6name.'</td> 
                                         <td>'.$field7name.'</td> 
-                                        <td>'.$field8name.'</td>  
+                                        <td><select name="list['.$id.']" id="list[]">
+                                        <option value="requested">Pending</option>
+                                        <option value="approved">Approved</option>
+                                        <option value="not approved">Not Approved</option>
+                                      </select></td 
                                     </tr>';
                             }
                             echo '</table>';
                             $result->free();
+                        }
+                        else {
+                            echo '<script>alert("No Vehicle to Add");</script>';
+                            header("refresh:.1; url=qm_home.php");
                         } 
-                    ?>                
+                    ?>                   
+                    <input type="submit" name ="sendEcht" value="Done">
+                </form>
             </div>
         </div>
+        
 
     </section>
 </body>
