@@ -4,38 +4,57 @@
     include 'inc.requestupdate.php';
     $_COOKIE['home'] = "\"qm_home.php\"";
 
-    // if(isset($_POST["sendEcht"])){
+    if(isset($_POST["sendEcht"])){
 
-    //     $class=$_POST['list'];
+        $class=$_POST['list'];
 
-    //     foreach ($class as $value => $k) {
+        foreach ($class as $value => $k) {
 
-    //         if($k == 'approved' || $k == 'not approved')
-    //         {
-    //             include("dbcon.php");
-    //             $quary="UPDATE `veh_mov_req` SET status='".$k."' WHERE serial='".$value."'";
-    //             $result1 = mysqli_query($con, $quary) or die(mysqli_error($con));
-    //             if($k == 'approved'){
-    //                 $quary="SELECT * from veh_mov_req WHERE serial='".$value."'";
-    //                 $result2 = mysqli_query($con, $quary) or die(mysqli_error($con));
-    //                 if (mysqli_num_rows($result2) > 0) {
-    //                     $row = mysqli_fetch_assoc($result2); 
-    //                     $bano = $row["bano"];
-    //                     $milage = $row["milage"];
-    //                     $kpl = $row["kpl"];
-    //                     $fueldate = $row["fueldate"];
-    //                     $fuelIssue = $row["fuelissue"];
-    //                     $fuelRemaining = $row["fuelremaining"];
-    //                     $classification = $row["classification"];
+            if($k == 'approved' || $k == 'not approved')
+            {
+                include("dbcon.php");
+                $quary="UPDATE `veh_mov_req` SET status='".$k."' WHERE serial='".$value."'";
+                $result1 = mysqli_query($con, $quary) or die(mysqli_error($con));
+                if($k == 'approved'){
+                    $quary="SELECT * from veh_mov_req WHERE serial='".$value."'";
+                    $result2 = mysqli_query($con, $quary) or die(mysqli_error($con));
+                    if (mysqli_num_rows($result2) > 0) {
+                        $row = mysqli_fetch_assoc($result2); 
+                        $bano = $row["bano"];
+                        $startLoc = $row["startlocation"];
+                        $depTime = $row["time"];
+                        $depDate = $row["date"];
+                        $amenity = $row["amenity"];
+                        $destination = $row["destination"];
+                        $usageDet = $row["usage_det"];
+
+                        $quary="SELECT * from vehicle WHERE bano='".$bano."' AND status ='available'";
+                        $result3 = mysqli_query($con, $quary) or die(mysqli_error($con));
+                        if (mysqli_num_rows($result3) > 0) {
+                            $row2 = mysqli_fetch_assoc($result3);
+                            $milage = $row2["milage"];
+                            $fuelBefore = $row2["fuelremaining"];
+                        }
+                        else{
+                            $quary = "UPDATE `veh_mov_req` SET status='requested' WHERE serial='".$value."'";
+                            mysqli_query($con, $quary) or die(mysqli_error($con));
+                            echo "<script>alert('".$bano." vehicle already in use');</script>";
+                            goto jump;
+                        }
     
-    //                     $quary = "INSERT INTO vehicle (bano, milage, kpl, fueldate, fuelissue, fuelremaining, classification) VALUES ('".$bano."', '".$milage."', '".$kpl."', '".$fueldate."', '".$fuelIssue."', '".$fuelRemaining."', '".$classification."')";
-    //                     $result3 = mysqli_query($con, $quary) or die(mysqli_error($con));
-    //                 }
-    //             }
+                        $quary = "INSERT INTO vdra (bano, startlocation, departuretime, dateofuse, amenity, destination, usagedetail, milagebefore, fuelbefore) VALUES ('".$bano."', '".$startLoc."', '".$depTime."', '".$depDate."', '".$amenity."', '".$destination."', '".$usageDet."', '".$milage."', '".$fuelBefore."')";
+                        $result4 = mysqli_query($con, $quary) or die(mysqli_error($con));
+                        if($result4){
+                            $quary="UPDATE vehicle SET status='unavailable' WHERE bano='".$bano."' AND status ='available'";
+                            mysqli_query($con, $quary) or die(mysqli_error($con));
+                        }
+                        jump:
+                    }
+                }
                 
-    //         }
-    //     }
-    // }
+            }
+        }
+    }
 ?>
 
 <!DOCTYPE html>

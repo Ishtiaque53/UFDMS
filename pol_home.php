@@ -20,7 +20,7 @@
                 <p class="subhead">menu</p>
                 <ul class="options">
                     <li class="pol-chng"><a href="pol_change.php">POL NCO Change</a></li>
-                    <li class="req-fuel"><a href="#">Request Fuel</a></li>
+                    <li class="req-fuel"><a href="pol_fuel_request.php">Request Fuel</a></li>
                     <li class="vdra"><a href="#">VDRA</a></li>
                     <li class="veh-detail"><a href="pol_veh_list.php">Vehicle Details</a></li>
                     <li class="apprvd-req"><a href="#">Approved Request</a></li>

@@ -25,6 +25,7 @@
                     <li class="vdra"><a href="#">VDRA</a></li>
                     <li class="veh-detail"><a href="mt_veh_list.php">Vehicle Details</a></li>
                     <li class="add-veh"><a href="mt_add_veh.php">Add Vehicle</a></li>
+                    <li class="veh-ret"><a href="#">Vehicle Outside</a></li>
                     <li class="chng-pass"><a href="mt_password.php">Change Password</a></li>
                 </ul>
             </div>

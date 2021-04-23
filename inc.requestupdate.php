@@ -9,15 +9,17 @@
         while ($row = $result->fetch_assoc()) {
             $movDate = $row['date'];
             $movTime = $row['time'];
+            
             $diff = date_diff(date_create($currentdate),date_create($movDate));
             if($diff->format('%r%d')<0){
                 $quary = "UPDATE veh_mov_req SET status ='not approved' where date='".$movDate."' AND status='requested'";
                 $result1 = mysqli_query($con, $quary) or die(mysqli_error($con));
                 $result1->free();
             }
-            elseif($diff->format('%r%d')==0){
-                $timeDiff = date_diff(date_create($currenttime),date_create($movTime));;
-                if($timeDiff->format('%r%H:%i:%s')<0){
+            elseif($diff->format('%d')==0){
+                $timeDiff = date_diff(date_create($currenttime),date_create($movTime));
+                //echo $movTime."<br>".$currenttime."<br>".$timeDiff->format('%r%H:%i:%s')."<br>";
+                if($timeDiff->format('%r%H')<0 || $timeDiff->format('%r%i')<0 ||$timeDiff->format('%r%s')<0){
                     $quary = "UPDATE veh_mov_req SET status ='not approved' where time='".$movTime."' AND status='requested'";
                     $result1 = mysqli_query($con, $quary) or die(mysqli_error($con));
                 }
