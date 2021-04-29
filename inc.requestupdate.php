@@ -14,7 +14,6 @@
             if($diff->format('%r%d')<0){
                 $quary = "UPDATE veh_mov_req SET status ='not approved' where date='".$movDate."' AND status='requested'";
                 $result1 = mysqli_query($con, $quary) or die(mysqli_error($con));
-                $result1->free();
             }
             elseif($diff->format('%d')==0){
                 $timeDiff = date_diff(date_create($currenttime),date_create($movTime));
@@ -26,5 +25,4 @@
             }
         }
     }
-    $result->free();
 ?>

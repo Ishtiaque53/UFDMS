@@ -12,6 +12,8 @@
             if($diff->format('%r%d')<0){
                 $quary = "UPDATE fuel_req SET status ='not approved' where fueldate='".$reqDate."' AND status='requested'";
                 $result1 = mysqli_query($con, $quary) or die(mysqli_error($con));
+                $quary = "UPDATE fuel_req SET status ='not dispensed' where fueldate='".$reqDate."' AND status='approved'";
+                $result2 = mysqli_query($con, $quary) or die(mysqli_error($con));
             }
         }
     }
