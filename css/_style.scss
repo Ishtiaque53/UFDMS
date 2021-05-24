@@ -82,6 +82,18 @@ nav.menu-btn {
             font-weight: bold;
         }
     }
+
+    li.dropdown ul.dropdown-menu {
+        transform: perspective(1000px) rotateX(-90deg);
+    }
+    
+    li.dropdown ul {
+        transform: perspective(1000px) rotateX(0deg);
+        list-style-type: none;
+        top: 100%;
+        left: 0;
+        z-index: 99999;
+    }
 }
 
 .mobile-menu-exit {
@@ -104,7 +116,7 @@ nav.menu-btn {
 
     .navbar .container {
         display: grid;
-        grid-template-columns: 600px auto;
+        grid-template-columns: 550px auto;
         
     }
 
@@ -113,14 +125,14 @@ nav.menu-btn {
         justify-content: space-between;
         background: none;
         position: unset;
-        height: auto;
+        height: 20px;
         width: 100%;
         padding: 0;
         border: white;
 
-        ul {
-            display: flex;
-        }
+        // ul {
+        //     display: flex;
+        // }
 
         a {
             color: black;
@@ -129,16 +141,62 @@ nav.menu-btn {
         }
 
         ul.primary-nav {
+            display: flex;
             margin: 0;
         }
 
+        
+
         li.current a {
-            font-weight: bold;
             &:hover {
-                margin-top: -.1em;
-                font-size: 1.5em;
+                font-weight: bold;
             }
         }
+
+        li.dropdown a.dropdown-toggle {
+            &:hover {
+                font-weight: bold;
+            }
+        }
+
+        li.dropdown a span{
+            color: #ffffff;
+            background: red;
+            font-weight: bold;
+            margin-top: -.2em;
+        }
+
+        li.dropdown ul.dropdown-menu {
+            transform: perspective(1000px) rotateX(-90deg);
+        }
+        
+        li.dropdown ul {
+            transform: perspective(1000px) rotateX(0deg);
+            list-style-type: none;
+            margin: 0;
+            margin-right: -17px;
+            padding: 0;
+            width: 100%;
+            background: #ccc;
+            transform-origin: top;
+        }
+
+        li.dropdown ul li a{
+            width: 150px;
+            display: block;
+            padding: 10px;
+            text-align: center;
+            text-decoration: none;
+            background: white;
+            border: 1px solid rgb(3, 3, 3);
+            &:hover {
+                font-size: 1.4em;
+            }
+        }
+
+        // li.dropmenu a {
+        //     display: none;
+        // }
 
         li.contact-cta a {
             color: #90EE90;
@@ -167,4 +225,7 @@ nav.menu-btn {
             }
         }
     }
+    // ul.primary-nav{
+    //     display: flex;
+    // }
 }
