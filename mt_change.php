@@ -24,6 +24,9 @@
         $quary = "INSERT INTO user_req (personalnum, rank, username, password, appt, status) VALUES ('".$soinikno."', '".$rank."', '".$name."', '".$password."', 'MT', 'requested')";
         $result1 = mysqli_query($con, $quary) or die(mysqli_error($con));
 
+        $quary = "INSERT INTO qmcomments (comment_subject, comment_text, comment_status, comment_link) VALUES ('NCO Change Request', 'MT NCO', '0', 'qm_mt_handing.php')";
+        $result2 = mysqli_query($con, $quary) or die(mysqli_error($con));
+
         if($result1 && $result2) {
             $quary = "commit";
             mysqli_query($con, $quary) or die(mysqli_error($con));

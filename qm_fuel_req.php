@@ -15,6 +15,17 @@
                 include("dbcon.php");
                 $quary="UPDATE `fuel_req` SET status='".$k."' WHERE serial='".$value."'";
                 $result1 = mysqli_query($con, $quary) or die(mysqli_error($con));
+
+                $quary = "SELECT * FROM `fuel_req` WHERE serial='".$value."'";
+                $result2 = mysqli_query($con, $quary) or die(mysqli_error($con));
+                if(mysqli_num_rows($result2) > 0){
+                    $row = $result2->fetch_assoc();
+                    $bano1 = $row['bano'];
+                }
+                
+                
+                $quary = "INSERT INTO polcomments (comment_subject, comment_text, comment_status, comment_link) VALUES ('Fuel Request', 'Vehicle: ".$bano1." Request ".$k."', '0', 'pol_appr_fuel.php')";
+                $result3 = mysqli_query($con, $quary) or die(mysqli_error($con));
             }
         }
     }
@@ -50,11 +61,11 @@
                         if(isset($_POST["search-button"])) {
         
                             $bano = $_POST["search"];
-                            $quary = "SELECT * FROM `fuel_req` WHERE bano = '".$bano."' AND status = 'requested' AND fueldate ='".$curDate."'";
+                            $quary = "SELECT * FROM `fuel_req` WHERE bano = '".$bano."' AND fueldate ='".$curDate."'";
                             $result = mysqli_query($con, $quary) or die(mysqli_error($con));
                         }
                         else {
-                            $quary = "SELECT * FROM `fuel_req` where status = 'requested' AND fueldate ='".$curDate."'";
+                            $quary = "SELECT * FROM `fuel_req` where fueldate ='".$curDate."'";
                             $result = mysqli_query($con, $quary) or die(mysqli_error($con));
                         }
 
@@ -71,17 +82,34 @@
                                 $id = $row["serial"];
                                 $field1name = $row["bano"];
                                 $field2name = $row["fuelissue"];
-                                
-
-                                echo '<tr> 
-                                        <td>'.$field1name.'</td> 
-                                        <td>'.$field2name.'</td> 
-                                        <td><select name="list['.$id.']" id="list[]">
-                                        <option value="requested">Pending</option>
-                                        <option value="approved">Approved</option>
-                                        <option value="not approved">Not Approved</option>
-                                      </select></td 
-                                    </tr>';
+                                $field3name = $row["status"];
+                                if($field3name == 'requested'){
+                                    echo '<tr> 
+                                            <td>'.$field1name.'</td> 
+                                            <td>'.$field2name.'</td> 
+                                            <td><select name="list['.$id.']" id="list[]">
+                                            <option value="requested">Pending</option>
+                                            <option value="approved">Approved</option>
+                                            <option value="not approved">Not Approved</option>
+                                          </select></td> 
+                                        </tr>';
+                                }
+                                else{
+                                    if($field3name == 'approved'){
+                                        $field3name = 'Approved';
+                                    }
+                                    elseif($field3name == 'not approved'){
+                                        $field3name = 'Not Approved';
+                                    }
+                                    elseif($field3name == 'dispensed'){
+                                        $field3name = 'Dispensed';
+                                    }
+                                    echo '<tr> 
+                                            <td>'.$field1name.'</td> 
+                                            <td>'.$field2name.'</td> 
+                                            <td>'.$field3name.'</td> 
+                                        </tr>';
+                                }
                             }
                             echo '</table>';
                             $result->free();

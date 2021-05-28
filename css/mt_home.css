@@ -150,6 +150,10 @@ nav.menu-btn {
     background: red;
     font-weight: bold;
     margin-top: -.2em;
+    border: 5px solid red;
+  }
+  .navbar nav li.dropdown a span:empty {
+    border: 0px;
   }
   .navbar nav li.dropdown ul.dropdown-menu {
     -webkit-transform: perspective(1000px) rotateX(-90deg);

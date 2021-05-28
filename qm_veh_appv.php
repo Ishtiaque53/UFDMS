@@ -47,11 +47,23 @@
                         if($result4){
                             $quary="UPDATE vehicle SET status='unavailable' WHERE bano='".$bano."' AND status ='available'";
                             mysqli_query($con, $quary) or die(mysqli_error($con));
+
+                            $quary = "INSERT INTO mtcomments (comment_subject, comment_text, comment_status, comment_link) VALUES ('Vehicle Move', 'Vehicle: ".$bano." approved', '0', 'mt_veh_outside.php')";
+                            $result5 = mysqli_query($con, $quary) or die(mysqli_error($con));
                         }
                         jump:
                     }
                 }
-                
+                else{
+                    $quary = "SELECT * FROM `veh_mov_req` WHERE serial='".$value."'";
+                    $result6 = mysqli_query($con, $quary) or die(mysqli_error($con));
+                    if(mysqli_num_rows($result6) > 0){
+                        $row = $result6->fetch_assoc();
+                        $bano1 = $row['bano'];
+                    }
+                    $quary = "INSERT INTO mtcomments (comment_subject, comment_text, comment_status, comment_link) VALUES ('Vehicle Move', 'Vehicle: ".$bano1." not approved', '0', 'mt_veh_outside.php')";
+                    $result7 = mysqli_query($con, $quary) or die(mysqli_error($con));
+                }
             }
         }
     }
@@ -140,9 +152,10 @@
                         }
                         else {
                             echo '<script>alert("No vehicle request today");</script>';
-                            header("refresh:.1; url=qm_home.php");
+                            echo("<script>location.href = 'qm_home.php';</script>");
+                            // header("refresh:.1; url=qm_home.php");
                         } 
-                    ?>                   
+                    ?>
                     <input type="submit" name ="sendEcht" value="Done">
                 </form>
             </div>

@@ -1,7 +1,5 @@
 <?php
-$arr = array('Hello','World!','Beautiful','Day!');
-echo implode(" ",$arr)."<br>";
-echo implode("+",$arr)."<br>";
-echo implode("-",$arr)."<br>";
-echo implode("X",$arr);
+$bano = 'Baaaa';
+$fuelAmount = '9887';
+echo  "INSERT INTO qmcomments (comment_subject, comment_text, comment_status) VALUES ('Fuel Request', 'Vehicle: ".$bano." Amount: ".$fuelAmount."', '0')";
 ?>

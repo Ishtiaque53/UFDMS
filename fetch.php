@@ -40,7 +40,7 @@ if(mysqli_num_rows($result) > 0)
  {
    $output .= '
    <li class="dropmenu">
-   <a href="#">
+   <a href="'.$row["comment_link"].'">
    <strong>'.$row["comment_subject"].'</strong><br />
    <small><em>'.$row["comment_text"].'</em></small>
    </a>

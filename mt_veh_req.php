@@ -17,6 +17,9 @@
         $quary = "INSERT INTO veh_mov_req (bano, startlocation, time, date, amenity, destination, usage_det, status) VALUES ('".$bano."', '".$startLoc."', '".$time."', '".$date."', '".$amenity."', '".$destination."', '".$usage."', 'requested')";
         $result1 = mysqli_query($con, $quary) or die(mysqli_error($con));
 
+        $quary = "INSERT INTO qmcomments (comment_subject, comment_text, comment_status, comment_link) VALUES ('Vehicle Move Request', 'Vehicle: ".$bano." Location: ".$destination."', '0', 'qm_veh_appv.php')";
+        $result2 = mysqli_query($con, $quary) or die(mysqli_error($con));
+
         if($result1) {
             $quary = "commit";
             mysqli_query($con, $quary) or die(mysqli_error($con));

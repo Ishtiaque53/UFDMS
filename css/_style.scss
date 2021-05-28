@@ -164,6 +164,11 @@ nav.menu-btn {
             background: red;
             font-weight: bold;
             margin-top: -.2em;
+            border: 5px solid red;
+        }
+
+        li.dropdown a span:empty{
+            border: 0px;
         }
 
         li.dropdown ul.dropdown-menu {

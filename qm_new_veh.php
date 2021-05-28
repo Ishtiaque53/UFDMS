@@ -29,7 +29,20 @@
     
                         $quary = "INSERT INTO vehicle (bano, milage, kpl, fueldate, fuelissue, fuelremaining, classification) VALUES ('".$bano."', '".$milage."', '".$kpl."', '".$fueldate."', '".$fuelIssue."', '".$fuelRemaining."', '".$classification."')";
                         $result3 = mysqli_query($con, $quary) or die(mysqli_error($con));
+
+                        $quary = "INSERT INTO mtcomments (comment_subject, comment_text, comment_status, comment_link) VALUES ('Add Vehicle', 'Vehicle: ".$bano." approved', '0', 'mt_veh_list.php')";
+                        $result4 = mysqli_query($con, $quary) or die(mysqli_error($con));
                     }
+                }
+                else{
+                    $quary = "SELECT * FROM `vehicle_req` WHERE serial='".$value."'";
+                    $result5 = mysqli_query($con, $quary) or die(mysqli_error($con));
+                    if(mysqli_num_rows($result5) > 0){
+                        $row = $result5->fetch_assoc();
+                        $bano1 = $row['bano'];
+                    }
+                    $quary = "INSERT INTO mtcomments (comment_subject, comment_text, comment_status, comment_link) VALUES ('Add Vehicle', 'Vehicle: ".$bano1." not approved', '0', 'mt_veh_list.php')";
+                    $result6 = mysqli_query($con, $quary) or die(mysqli_error($con));
                 }
                 
             }

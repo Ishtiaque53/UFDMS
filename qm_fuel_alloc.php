@@ -17,6 +17,9 @@
         $quary = "INSERT INTO fuel_req (bano, fueldate, fuelissue, status) VALUES ('".$bano."', '".$reqDate."', '".$fuelAmount."', 'approved')";
         $result2 = mysqli_query($con, $quary) or die(mysqli_error($con));
 
+        $quary = "INSERT INTO polcomments (comment_subject, comment_text, comment_status, comment_link) VALUES ('Fuel Allocated', 'Vehicle: ".$bano." Amount: ".$fuelAmount."', '0', 'pol_appr_fuel.php')";
+        $result3 = mysqli_query($con, $quary) or die(mysqli_error($con));
+
         if($result1 && $result2) {
             $quary = "commit";
             mysqli_query($con, $quary) or die(mysqli_error($con));
