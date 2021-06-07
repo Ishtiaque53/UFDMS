@@ -11,14 +11,14 @@
             <nav class="navbar-nav">
                 <img id="mobile-exit" class="mobile-menu-exit" src="Images/exit.svg" alt="Exit">
                 <ul class="primary-nav">
-                    <li class="dropdown"><a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                        <span class="label label-pill label-danger count" style="border-radius:3px;"></span> Notifications</a>
-                        <ul class="dropdown-menu"></ul>
-                    </li>
                     <li class="current"><a href=<?php echo $_COOKIE['home'] ?>>Home</a></li>
                     <li class="current"><a href="aboutus.php">About Us</a></li>
                     <li class="contact-cta"><a href="contact.php">Contact Us</a></li>
                     <li class="logout-cta"><a href="logout.php">Log Out</a></li>
+                    <li class="dropdown"><a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                        <span class="label label-pill label-danger count" style="border-radius:3px;"></span> Notifications</a>
+                        <ul class="dropdown-menu"></ul>
+                    </li>
                 </ul>
             </nav>
         </div>

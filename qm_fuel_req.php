@@ -6,6 +6,10 @@
 
     if(isset($_POST["sendEcht"])){
 
+        if(is_null($_POST['list']))
+        {
+           echo  "<script>window.location.href = 'qm_home.php';</script>";
+        }
         $class=$_POST['list'];
 
         foreach ($class as $value => $k) {

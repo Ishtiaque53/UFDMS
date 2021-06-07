@@ -2,6 +2,7 @@
     $authAppt="QM";
     include 'inc.authentication.php';
     $_COOKIE['home'] = "\"qm_home.php\"";
+    date_default_timezone_set("Asia/Dhaka");
 
     include("dbcon.php");
     if(isset($_POST["submit"])) {

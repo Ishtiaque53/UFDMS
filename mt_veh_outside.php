@@ -31,7 +31,7 @@
                                 $field2name = $row["destination"];
                                 $field2name = explode(" ", $field2name);
 
-                                echo '<li><a href="mt_veh_return.php">'.$field1name.' '.$field2name[0].'</a></li>';    
+                                echo '<li><a href="mt_veh_return.php?bano='.$field1name.'">'.$field1name.' '.$field2name[0].'</a></li>';    
                             }
                         } 
                     ?> 

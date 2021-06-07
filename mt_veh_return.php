@@ -2,34 +2,51 @@
     $authAppt="MT";
     include 'inc.authentication.php';
     $_COOKIE['home'] = "\"mt_home.php\"";
+    date_default_timezone_set("Asia/Dhaka");
 
-    // include("dbcon.php");
-    // if(isset($_POST["submit"])) {
-        
-    //     $bano = $_POST['bano'];
-    //     $fuelAmount = $_POST['fuel-amnt'];
-    //     $reqDate = date("Y-m-d");
-        
+    include("dbcon.php");
+    if(isset($_GET["bano"])) {
+        $bano = $_GET["bano"];
+        $_COOKIE['bano'] = $bano;
+        if(isset($_POST["submit"])) {
+            
+            $odometer = $_POST['odometer'];
+            $fuelUsed = $_POST['fuel-amnt'];
+            $returnDate = new DateTime();
+            
+            $quary = "SELECT * FROM `vdra` WHERE bano = '".$bano."' AND returntime is null";
+            $result1 = mysqli_query($con, $quary) or die(mysqli_error($con));
 
-    //     $quary = "UPDATE `fuel_req` SET status = 'not approved' WHERE bano = '".$bano."' AND status = 'requested'";
-    //     $result1 = mysqli_query($con, $quary) or die(mysqli_error($con));
+            if(mysqli_num_rows($result1) > 0){
+                $row = $result1->fetch_assoc();
+                $milageBefore = $row['milagebefore'];
+                $fuelBefore = $row['fuelbefore'];
+            }
 
-    //     $quary = "INSERT INTO fuel_req (bano, fueldate, fuelissue, status) VALUES ('".$bano."', '".$reqDate."', '".$fuelAmount."', 'requested')";
-    //     $result2 = mysqli_query($con, $quary) or die(mysqli_error($con));
+            $fuelRemain = $fuelBefore -  $fuelUsed;
+            $distance = $odometer - $milageBefore;
+    
+            $quary = "UPDATE `vdra` SET returntime = '".$returnDate->format('Y-m-d H:i:s')."', milageafter = '".$odometer."', distencecovered = '".$distance."', fuelexpenditure = '".$fuelUsed."', fuelpresent = '".$fuelRemain."' WHERE bano = '".$bano."' AND returntime is null";
+            $result2 = mysqli_query($con, $quary) or die(mysqli_error($con));
+    
+            $quary = "UPDATE `vehicle` SET status = 'available', fuelremaining = '".$fuelRemain."', milage = '".$odometer."' WHERE bano = '".$bano."' AND status = 'unavailable'";
+            $result3 = mysqli_query($con, $quary) or die(mysqli_error($con));
+    
+            if($result2 && $result3) {
+                $quary = "commit";
+                mysqli_query($con, $quary) or die(mysqli_error($con));
+                echo '<script>alert("Vehicle Returned Successful");</script>';
+                header("refresh:.1; url=mt_veh_outside.php");
+            }
+    
+            else {
+                $quary = "rollback";
+                mysqli_query($con, $quary) or die(mysqli_error($con));
+                echo '<script>alert("Fuel Request was not successful");</script>';
+            }
+        }
+    }
 
-    //     if($result1 && $result2) {
-    //         $quary = "commit";
-    //         mysqli_query($con, $quary) or die(mysqli_error($con));
-    //         echo '<script>alert("Fuel Request Successful");</script>';
-    //         header("refresh:.1; url=mt_veh_return.php");
-    //     }
-
-    //     else {
-    //         $quary = "rollback";
-    //         mysqli_query($con, $quary) or die(mysqli_error($con));
-    //         echo '<script>alert("Fuel Request was not successful");</script>';
-    //     }
-    // }
 ?>
 
 <!DOCTYPE html>
@@ -47,7 +64,9 @@
         <div class="container1">
             <div class="left-col">
                 <p class="subhead">Return Vehicle</p>
-                <form action="mt_veh_return.php" method="post">
+                <?php 
+                    echo '<form action="mt_veh_return.php?bano='.$_COOKIE["bano"].'" method="post">';
+                ?>
                     <label for="odometer">Odometer Reading:</label>
                     <input type="text" id="odometer" name="odometer"  required><br>
                     <label for="fuel-amnt">Fuel Used:</label>

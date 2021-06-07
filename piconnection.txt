@@ -1,0 +1,88 @@
+#!/usr/bin/python
+from gpiozero import LED, Button
+import RPi.GPIO as GPIO
+import time, sys
+import urllib.request
+import json
+
+#PUMP = LED(17)
+#PUMP_BUTTON = Button(2)
+#PUMP.on()
+#def pump():
+#   PUMP.off()
+
+#PUMP_BUTTON.when_pressed = PUMP.off
+#PUMP_BUTTON.when_released = PUMP.on
+
+GPIO.setmode(GPIO.BCM)
+inpt = 23
+pump = 17
+GPIO.setup(inpt,GPIO.IN)
+GPIO.setup(pump,GPIO.OUT)
+rate_cnt = 0
+tot_cnt = 0
+time_zero = 0.0
+time_start = 0.0
+time_end = 0.0
+gpio_last = 0
+pulses = 0
+total_oil = 0
+constant = 0.0155 #calculated by physically testing.
+
+
+
+print('Oilflush=True Flow - Approximate')
+print('Control C to exit')
+
+time_zero = time.time()
+while True:
+	total_oil = 0
+	tot_cnt = 0
+	GPIO.output(17,True)
+	#userInput = int(input("Fuel to dispense(Liters)?\n"))
+	#print("You have written: ", userInput, " Liters")
+	bano = "BA-2266"
+	url = "http://192.168.68.110/IDP%20-%20460/Front%20End/pi_connect.php?search="+bano
+	request = urllib.request.Request(url)
+	response = urllib.request.urlopen(request)
+	y = json.loads(response.read().decode('utf-8'))
+	userInput = y["Fuel"]
+	if userInput == "None" :
+		print(y["Status"])
+	else :
+		userInput = int(userInput)
+		print("Fuel Amount: ", userInput, " Liters")
+		while userInput > total_oil:
+			GPIO.output(17,False)
+			rate_cnt = 0
+			pulses = 0
+			time_start = time.time()
+			while pulses <= 5:
+				gpio_cur = GPIO.input(inpt)
+				if gpio_cur != 0 and gpio_cur != gpio_last:
+					pulses += 1
+				gpio_last = gpio_cur
+				try:
+					None
+				except KeyboardInterrupt:
+					print('\nCTRL C - Exiting Nicely')
+					GPIO.cleanp()
+					print('Done')
+					sys.exit()
+			rate_cnt += 1
+			tot_cnt += 1
+			time_end = time.time()
+			total_oil = round(tot_cnt * constant,1)
+			print('\nLiters / min ', round((rate_cnt * constant)/(time_end-time_start),2),'approximate',flush=True)
+			print('Total Liters ', round(tot_cnt * constant,1),flush=True)
+		GPIO.output(17,True)
+		try:
+			url2 = "http://192.168.68.110/IDP%20-%20460/Front%20End/pi_update.php?update="+bano
+			request = urllib.request.Request(url2)
+			response = urllib.request.urlopen(request)
+			rsp = json.loads(response.read().decode('utf-8'))
+			udpt = rsp["Status"]
+			if udpt == "dispensed"
+				print('SERVER PDATED')
+		except:
+			print('Cannot connect to the server')
