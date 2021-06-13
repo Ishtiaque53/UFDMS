@@ -23,7 +23,7 @@
                     <li class="qm-chng"><a href="qm_change.php">QM Change</a></li>
                     <li class="fuel-req"><a href="qm_fuel_req.php">Fuel Request</a></li>
                     <li class="alloc-fuel"><a href="qm_fuel_alloc.php">Allocate Fuel</a></li>
-                    <li class="vdra"><a href="#">VDRA</a></li>
+                    <li class="vdra"><a href="qm_vdra.php">VDRA</a></li>
                     <li class="new-veh-apprv"><a href="qm_new_veh.php">New Vehicle Approval</a></li>
                     <li class="veh-apprv"><a href="qm_veh_appv.php">Vehicle Approval</a></li>
                     <li class="veh-detail"><a href="qm_veh_list.php">Vehicle Details</a></li>

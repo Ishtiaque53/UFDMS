@@ -239,7 +239,7 @@ section {
   text-transform: uppercase;
   font-weight: 1000;
   color: black;
-  font-size: 3em;
+  font-size: 2em;
 }
 
 form {
@@ -247,6 +247,16 @@ form {
 }
 
 input {
+  width: 100%;
+  padding: .8em;
+  margin-bottom: 1em;
+  border-radius: .3em;
+  border: 1px solid gray;
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
+}
+
+select {
   width: 100%;
   padding: .8em;
   margin-bottom: 1em;
@@ -272,4 +282,4 @@ input[type="submit"] {
 input[type="submit"]:hover {
   background: black;
 }
-/*# sourceMappingURL=qm_pol_password.css.map */
+/*# sourceMappingURL=qm_vdra.css.map */
