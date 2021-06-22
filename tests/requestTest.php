@@ -1,5 +1,5 @@
 <?php
-//include 'inc.requestupdate.php';
+include 'inc.requestupdate.php';
     class ufdmsTest extends \PHPUnit\Framework\TestCase {
         public function testRequestUpdate(){
             include("dbcon.php");

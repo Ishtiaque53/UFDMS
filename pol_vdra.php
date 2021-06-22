@@ -1,7 +1,7 @@
 <?php
-    $authAppt="QM";
+    $authAppt="POL";
     include 'inc.authentication.php';
-    $_COOKIE['home'] = "\"qm_home.php\"";
+    $_COOKIE['home'] = "\"pol_home.php\"";
     date_default_timezone_set("Asia/Dhaka");
 ?>
 
@@ -20,7 +20,7 @@
         <div class="container1">
             <div class="left-col">
                 <p class="subhead">VDRA</p>
-                <form action="qm_vdra_gen.php" method="post">
+                <form action="pol_vdra_gen.php" method="post">
                     <label for="bano">Vehicle BA No:</label>
                     <input type="text" id="bano" name="bano" list="bano1" autocomplete="off" required><br>
                         <datalist id="bano1">

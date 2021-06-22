@@ -21,7 +21,7 @@
                 <ul class="options">
                     <li class="pol-chng"><a href="pol_change.php">POL NCO Change</a></li>
                     <li class="req-fuel"><a href="pol_fuel_request.php">Request Fuel</a></li>
-                    <li class="vdra"><a href="#">VDRA</a></li>
+                    <li class="vdra"><a href="pol_vdra.php">VDRA</a></li>
                     <li class="veh-detail"><a href="pol_veh_list.php">Vehicle Details</a></li>
                     <li class="apprvd-req"><a href="pol_appr_fuel.php">Approved Request</a></li>
                     <li class="chng-pass"><a href="pol_password.php">Change Password</a></li>
